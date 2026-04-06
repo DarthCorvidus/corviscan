@@ -1,0 +1,17 @@
+{
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"name": "corvidus/corviscan",
+	"autoload": {
+        "classmap": ["src/"]
+    },
+	"require-dev": {
+		"vimeo/psalm": "^6",
+		"phpunit/phpunit": "^9"
+	},
+	"scripts": {
+		"test": "./vendor/bin/phpunit --bootstrap vendor/autoload.php tests",
+		"testdox": "./vendor/bin/phpunit --bootstrap vendor/autoload.php --testdox --colors=always tests",
+		"psalm": "./vendor/bin/psalm --show-info=true --no-cache"
+	}
+}

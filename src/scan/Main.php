@@ -1,13 +1,21 @@
 <?php
 namespace corviscan\scan;
+use plibv4\argv\Argv;
+use plibv4\argv\ArgvException;
+use plibv4\argv\ArgvReference;
 final class Main {
 	private string $target;
 	function __construct(array $argv) {
-		if(!isset($argv[1])) {
-			echo "Usage: corviscan.php <target>".PHP_EOL;
+		$argvModel = new ArgvScan();
+		try {
+			$argvImport = new Argv($argv, $argvModel);
+		} catch (ArgvException $e) {
+			echo $e->getMessage().PHP_EOL;
+			$ref = new ArgvReference($argvModel);
+			echo $ref->getReference().PHP_EOL;
 			exit();
 		}
-		$this->target = (string)$argv[1];
+		$this->target = $argvImport->getPositional(0);		
 		if(file_exists($this->target)) {
 			echo sprintf("Target directory %s already exists. Scan anyway (y/N)?", $this->target);
 			$input = $this->getInput();

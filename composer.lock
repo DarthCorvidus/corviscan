@@ -4,8 +4,63 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bab02641619d06a7b1f58b1f89599de7",
+    "content-hash": "a629d332e0146676b8d0fc5ba90cdd73",
     "packages": [
+        {
+            "name": "plibv4/argv",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DarthCorvidus/plibv4-argv",
+                "reference": "7a6393a510fd4f5f38796834958e040412686113"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DarthCorvidus/plibv4-argv/zipball/7a6393a510fd4f5f38796834958e040412686113",
+                "reference": "7a6393a510fd4f5f38796834958e040412686113",
+                "shasum": ""
+            },
+            "require": {
+                "plibv4/convert": "dev-main",
+                "plibv4/longeststring": "dev-main",
+                "plibv4/uservalue": "dev-main",
+                "plibv4/validate": "dev-main"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9",
+                "vimeo/psalm": "^6"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "scripts": {
+                "test": [
+                    "./vendor/bin/phpunit --bootstrap vendor/autoload.php tests"
+                ],
+                "testdox": [
+                    "./vendor/bin/phpunit --bootstrap vendor/autoload.php --testdox --colors=always tests"
+                ],
+                "coverage": [
+                    "phpdbg -qrr ./vendor/bin/phpunit --bootstrap vendor/autoload.php tests --coverage-text"
+                ],
+                "coverage-html": [
+                    "phpdbg -qrr ./vendor/bin/phpunit --bootstrap vendor/autoload.php tests --coverage-html coverage"
+                ],
+                "psalm": [
+                    "./vendor/bin/psalm --show-info=true --no-cache"
+                ],
+                "all": [
+                    "./vendor/bin/phpunit --bootstrap vendor/autoload.php tests",
+                    "./vendor/bin/psalm --show-info=true --no-cache",
+                    "phpdbg -qrr ./vendor/bin/phpunit --bootstrap vendor/autoload.php tests --coverage-text"
+                ]
+            },
+            "time": "2026-01-28T19:21:39+00:00"
+        },
         {
             "name": "plibv4/assert",
             "version": "dev-main",
@@ -139,6 +194,50 @@
                 ]
             },
             "time": "2026-04-12T11:06:32+00:00"
+        },
+        {
+            "name": "plibv4/longeststring",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DarthCorvidus/plibv4-longeststring",
+                "reference": "dbf1afaec867d8bc61564e63955538334c6723fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DarthCorvidus/plibv4-longeststring/zipball/dbf1afaec867d8bc61564e63955538334c6723fd",
+                "reference": "dbf1afaec867d8bc61564e63955538334c6723fd",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9",
+                "vimeo/psalm": "^6"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "scripts": {
+                "test": [
+                    "./vendor/bin/phpunit --bootstrap vendor/autoload.php tests"
+                ],
+                "testdox": [
+                    "./vendor/bin/phpunit --bootstrap vendor/autoload.php --testdox --colors=always tests"
+                ],
+                "coverage": [
+                    "phpdbg -qrr ./vendor/bin/phpunit --bootstrap vendor/autoload.php tests --coverage-text"
+                ],
+                "coverage-html": [
+                    "phpdbg -qrr ./vendor/bin/phpunit --bootstrap vendor/autoload.php tests --coverage-html coverage"
+                ],
+                "psalm": [
+                    "./vendor/bin/psalm --show-info=true --no-cache"
+                ]
+            },
+            "time": "2026-01-28T19:00:58+00:00"
         },
         {
             "name": "plibv4/uservalue",
@@ -5248,7 +5347,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "plibv4/import": 20
+        "plibv4/import": 20,
+        "plibv4/argv": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

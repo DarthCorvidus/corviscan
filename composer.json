@@ -27,7 +27,18 @@
 			"type": "vcs",
 			"url": "https://github.com/DarthCorvidus/plibv4-import",
 			"no-api": true
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/DarthCorvidus/plibv4-argv",
+			"no-api": true
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/DarthCorvidus/plibv4-longeststring",
+			"no-api": true
 		}
+
 	],
 	"autoload": {
         "classmap": ["src/"]
@@ -42,6 +53,7 @@
 		"psalm": "./vendor/bin/psalm --show-info=true --no-cache"
 	},
 	"require": {
-		"plibv4/import": "dev-main"
+		"plibv4/import": "dev-main",
+		"plibv4/argv": "dev-main"
 	}
 }

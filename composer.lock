@@ -91,12 +91,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/DarthCorvidus/plibv4-import",
-                "reference": "fb172a1fa20890395d66e633e91c69504118fa10"
+                "reference": "f3c8870d179b419076458a8c2f885d45fc8ce904"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DarthCorvidus/plibv4-import/zipball/fb172a1fa20890395d66e633e91c69504118fa10",
-                "reference": "fb172a1fa20890395d66e633e91c69504118fa10",
+                "url": "https://api.github.com/repos/DarthCorvidus/plibv4-import/zipball/f3c8870d179b419076458a8c2f885d45fc8ce904",
+                "reference": "f3c8870d179b419076458a8c2f885d45fc8ce904",
                 "shasum": ""
             },
             "require": {
@@ -138,7 +138,7 @@
                     "phpdbg -qrr ./vendor/bin/phpunit --bootstrap vendor/autoload.php tests --coverage-text"
                 ]
             },
-            "time": "2026-04-11T13:18:07+00:00"
+            "time": "2026-04-12T11:06:32+00:00"
         },
         {
             "name": "plibv4/uservalue",

@@ -2,6 +2,33 @@
 	"minimum-stability": "dev",
 	"prefer-stable": true,
 	"name": "corvidus/corviscan",
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/DarthCorvidus/plibv4-validate",
+			"no-api": true
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/DarthCorvidus/plibv4-convert",
+			"no-api": true
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/DarthCorvidus/plibv4-assert",
+			"no-api": true
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/DarthCorvidus/plibv4-uservalue",
+			"no-api": true
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/DarthCorvidus/plibv4-import",
+			"no-api": true
+		}
+	],
 	"autoload": {
         "classmap": ["src/"]
     },
@@ -13,5 +40,8 @@
 		"test": "./vendor/bin/phpunit --bootstrap vendor/autoload.php tests",
 		"testdox": "./vendor/bin/phpunit --bootstrap vendor/autoload.php --testdox --colors=always tests",
 		"psalm": "./vendor/bin/psalm --show-info=true --no-cache"
+	},
+	"require": {
+		"plibv4/import": "dev-main"
 	}
 }

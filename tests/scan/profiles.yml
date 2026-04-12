@@ -1,0 +1,15 @@
+default:
+  height: 297
+profiles:
+- name: credit
+  width: 86
+  height: 54
+  mode: color
+  resolution: 150
+- name: vvs-ticket
+  width: 120
+  height: 84
+  mode: gray
+  resolution: 150
+  
+  

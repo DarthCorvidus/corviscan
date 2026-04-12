@@ -9,16 +9,16 @@
     findUnusedBaselineEntry="true"
     findUnusedCode="true"
 >
-	<!-- Not yet relevant
+
     <issueHandlers>
-        <UnusedMethod>
+        <UnusedClass>
             <errorLevel type="suppress">
                 <directory name="tests" />
             </errorLevel>
-        </UnusedMethod>
+        </UnusedClass>
     </issueHandlers>
-	-->
-    <projectFiles>
+
+	<projectFiles>
         <directory name="./" />
         <ignoreFiles>
             <directory name="vendor" />

@@ -3,10 +3,22 @@ namespace corviscan\scan;
 use plibv4\argv\Argv;
 use plibv4\argv\ArgvException;
 use plibv4\argv\ArgvReference;
+use plibv4\import\Import;
 final class Main {
 	private string $target;
+	private Import $actProfile;
+	/**
+	 * 
+	 * @param list<string> $argv
+	 */
 	function __construct(array $argv) {
 		$argvModel = new ArgvScan();
+		
+		if(!isset($_SERVER["HOME"])) {
+			echo "\$HOME not set, unable to determine config path.".PHP_EOL;
+			exit();
+		}
+		$profiles = new Profiles($_SERVER["HOME"]."/.config/corviscan/profiles.yml");
 		try {
 			$argvImport = new Argv($argv, $argvModel);
 		} catch (ArgvException $e) {
@@ -15,7 +27,11 @@ final class Main {
 			echo $ref->getReference().PHP_EOL;
 			exit();
 		}
-		$this->target = $argvImport->getPositional(0);		
+		$this->target = $argvImport->getPositional(0);
+		$this->actProfile = $profiles->getDefaultImport();
+		if($argvImport->hasValue("profile")) {
+			$this->actProfile = $profiles->getNamedImport($argvImport->getValue("profile"));
+		}
 		if(file_exists($this->target)) {
 			echo sprintf("Target directory %s already exists. Scan anyway (y/N)?", $this->target);
 			$input = $this->getInput();
@@ -51,13 +67,14 @@ final class Main {
 	
 	function run(): void {
 		$count = 1;
-		$x = 210;
-		$y = 297;
-		$res = 150;
+		$x = $this->actProfile->getString("width");
+		$y = $this->actProfile->getString("height");
+		$res = $this->actProfile->getString("resolution");
+		$mode = $this->actProfile->getString("mode");
 		$tmpTIFF = "/tmp/scan.tif";
 		$tmpPNG = "/tmp/scan.png";
 		while(true) {
-			$this->verboseExec("scanimage --mode gray -x ".$x." -y ".$y." --format=tiff --resolution=".$res." > ".$tmpTIFF);
+			$this->verboseExec("scanimage --mode ".$mode." -x ".$x." -y ".$y." --format=tiff --resolution=".$res." > ".$tmpTIFF);
 			$this->verboseExec("convert ".escapeshellarg($tmpTIFF)." ".escapeshellarg($tmpPNG));
 			$final = sprintf("%s/%s-%02d.png", $this->target, $this->target, $count);
 			$this->verboseExec("pngcrush ".escapeshellarg($tmpPNG)." ".escapeshellarg($final));

@@ -31,18 +31,29 @@ final class Profiles extends ImportGeneric {
 	function getDefaultImport(): Import {
 		return $this->import->getImport("default");
 	}
-	
+
 	function getNamedImport(string $name): Import {
 		for($i = 0; $i<$this->import->getImportList("profiles")->getCount(); $i++) {
 			$import = $this->import->getImportList("profiles")->getImport($i);
-			echo $import->getString("name");
 			if($import->getString("name")===$name) {
 				return $import;
 			}
 		}
 	throw new \InvalidArgumentException(sprintf("unable to find profile '%s'", $name));
 	}
-	
+
+	/**
+	 * @return list<string>
+	 */
+	function getProfileNames(): array {
+		$profiles = array();
+		for($i = 0; $i<$this->import->getImportList("profiles")->getCount(); $i++) {
+			$import = $this->import->getImportList("profiles")->getImport($i);
+			$profiles[] = $import->getString("name");
+		}
+	return $profiles;
+	}
+
 	/** 
 	 * @psalm-suppress PossiblyUnusedReturnValue, UnusedParam
 	 */

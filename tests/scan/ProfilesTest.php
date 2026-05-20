@@ -33,4 +33,11 @@ final class ProfilesTest extends TestCase {
 		$this->assertSame("150", $profile->getString("resolution"));
 		$this->assertSame("gray", $profile->getString("mode"));
 	}
+
+	function testGetProfileNames(): void {
+		$expectedNames = array("credit", "vvs-ticket");
+		$profiles = new Profiles(__DIR__."/profiles.yml");
+		$profileNames = $profiles->getProfileNames();
+		$this->assertEquals($expectedNames, $profileNames);
+	}
 }

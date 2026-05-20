@@ -1,5 +1,7 @@
 <?php
 namespace corviscan\scan;
+
+use InvalidArgumentException;
 use plibv4\argv\Argv;
 use plibv4\argv\ArgvException;
 use plibv4\argv\ArgvReference;
@@ -30,7 +32,20 @@ final class Main {
 		$this->target = $argvImport->getPositional(0);
 		$this->actProfile = $profiles->getDefaultImport();
 		if($argvImport->hasValue("profile")) {
-			$this->actProfile = $profiles->getNamedImport($argvImport->getValue("profile"));
+			try {
+				$this->actProfile = $profiles->getNamedImport($argvImport->getValue("profile"));				
+			} catch(InvalidArgumentException $e) {
+				$profileNames = $profiles->getProfileNames();
+				if(empty($profileNames)) {
+					echo "Invalid profile, no profiles defined.".PHP_EOL;
+					exit(1);
+				}
+				echo "Invalid profile. Available profiles:".PHP_EOL;
+				foreach($profileNames as $value) {
+					echo "\t".$value.PHP_EOL;
+				}
+				exit(1);
+			}
 		}
 		if(file_exists($this->target)) {
 			echo sprintf("Target directory %s already exists. Scan anyway (y/N)?", $this->target);

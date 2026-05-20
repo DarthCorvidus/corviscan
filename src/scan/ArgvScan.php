@@ -9,5 +9,6 @@ final class ArgvScan extends ArgvGeneric {
 		$target->setConvert(new ConvertTrailingSlash(ConvertTrailingSlash::REMOVE));
 		$this->addPositionalArg("target", $target);
 		$this->addNamedArg("profile", UserValue::asOptional());
+		$this->addBooleanArg("list-profiles");
 	}
 }

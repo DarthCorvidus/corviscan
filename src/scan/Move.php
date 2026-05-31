@@ -35,11 +35,6 @@ final class Move {
 	}
 	
 	private function validate(): void {
-		// Validate source directory exists
-		if (!is_dir($this->source)) {
-			throw new InvalidArgumentException("Source directory '{$this->source}' does not exist.");
-		}
-		
 		// Validate target directory doesn't exist
 		if (file_exists($this->target)) {
 			throw new InvalidArgumentException("Target '{$this->target}' already exists.");

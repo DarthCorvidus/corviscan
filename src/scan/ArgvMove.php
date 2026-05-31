@@ -15,6 +15,7 @@ final class ArgvMove extends ArgvGeneric {
 		
 		$target = UserValue::asMandatory();
 		$target->setConvert(new ConvertTrailingSlash(ConvertTrailingSlash::REMOVE));
+		$target->setValidate(new ValidateNoPath());
 		$this->addPositionalArg("target", $target);
 	}
 }

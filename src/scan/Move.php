@@ -1,7 +1,6 @@
 <?php
 namespace corviscan\scan;
 
-use InvalidArgumentException;
 use RuntimeException;
 use plibv4\argv\Argv;
 use plibv4\argv\ArgvException;
@@ -30,15 +29,6 @@ final class Move {
 		$this->source = $argvImport->getPositional(0);
 		$this->target = $argvImport->getPositional(1);
 		$this->verbose = true;
-		
-		$this->validate();
-	}
-	
-	private function validate(): void {
-		// Validate target directory doesn't exist
-		if (file_exists($this->target)) {
-			throw new InvalidArgumentException("Target '{$this->target}' already exists.");
-		}
 	}
 	
 	private function log(string $message): void {

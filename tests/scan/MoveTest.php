@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace corviscan\scan;
 
 use PHPUnit\Framework\TestCase;
-use InvalidArgumentException;
 use RuntimeException;
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -70,17 +69,6 @@ final class MoveTest extends TestCase {
 		$move = new Move($argv);
 		
 		$this->assertInstanceOf(Move::class, $move);
-	}
-	
-	function testConstructWithExistingTarget(): void {
-		$this->createTestScan($this->sourceDir);
-		mkdir($this->targetDir);
-		
-		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessageMatches('/already exists/');
-		
-		$argv = ['corviscan-move.php', $this->sourceDir, $this->targetDir];
-		new Move($argv);
 	}
 	
 	function testRunRenamesDirectoryAndFiles(): void {

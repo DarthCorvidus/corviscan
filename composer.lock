@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/DarthCorvidus/plibv4-argv",
-                "reference": "7a6393a510fd4f5f38796834958e040412686113"
+                "reference": "043e438f28ca1e2441c94b626f2c9a0570499b4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DarthCorvidus/plibv4-argv/zipball/7a6393a510fd4f5f38796834958e040412686113",
-                "reference": "7a6393a510fd4f5f38796834958e040412686113",
+                "url": "https://api.github.com/repos/DarthCorvidus/plibv4-argv/zipball/043e438f28ca1e2441c94b626f2c9a0570499b4e",
+                "reference": "043e438f28ca1e2441c94b626f2c9a0570499b4e",
                 "shasum": ""
             },
             "require": {
@@ -59,7 +59,7 @@
                     "phpdbg -qrr ./vendor/bin/phpunit --bootstrap vendor/autoload.php tests --coverage-text"
                 ]
             },
-            "time": "2026-01-28T19:21:39+00:00"
+            "time": "2026-05-31T11:46:05+00:00"
         },
         {
             "name": "plibv4/assert",

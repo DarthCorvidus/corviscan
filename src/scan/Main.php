@@ -4,6 +4,7 @@ namespace corviscan\scan;
 use InvalidArgumentException;
 use plibv4\argv\Argv;
 use plibv4\argv\ArgvException;
+use plibv4\argv\ArgvParser;
 use plibv4\argv\ArgvReference;
 use plibv4\import\Import;
 final class Main {
@@ -14,13 +15,21 @@ final class Main {
 	 * @param list<string> $argv
 	 */
 	function __construct(array $argv) {
-		$argvModel = new ArgvScan();
-		
 		if(!isset($_SERVER["HOME"])) {
 			echo "\$HOME not set, unable to determine config path.".PHP_EOL;
 			exit();
 		}
+
+		$argvParser = new ArgvParser($argv);
 		$profiles = new Profiles($_SERVER["HOME"]."/.config/corviscan/profiles.yml");
+
+		if($argvParser->hasBooleanFlag("list-profiles")) {
+			$this->printProfiles($profiles);
+			exit();
+		}
+
+		$argvModel = new ArgvScan();
+
 		try {
 			$argvImport = new Argv($argv, $argvModel);
 		} catch (ArgvException $e) {
@@ -80,6 +89,13 @@ final class Main {
 		pclose($ph);
 	}
 	
+	private function printProfiles(Profiles $profiles): void {
+		echo "Profiles:".PHP_EOL;
+		foreach($profiles->getProfileNames() as $value) {
+			echo "\t".$value.PHP_EOL;
+		}
+	}
+
 	function run(): void {
 		$count = 1;
 		$x = $this->actProfile->getString("width");

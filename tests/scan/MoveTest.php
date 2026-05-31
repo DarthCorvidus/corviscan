@@ -72,14 +72,6 @@ final class MoveTest extends TestCase {
 		$this->assertInstanceOf(Move::class, $move);
 	}
 	
-	function testConstructWithInvalidArgumentCount(): void {
-		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessageMatches('/Usage:/');
-		
-		$argv = ['corviscan-move.php', $this->sourceDir];
-		new Move($argv);
-	}
-	
 	function testConstructWithNonExistentSource(): void {
 		$this->expectException(InvalidArgumentException::class);
 		$this->expectExceptionMessageMatches('/does not exist/');

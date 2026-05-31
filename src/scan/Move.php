@@ -3,6 +3,9 @@ namespace corviscan\scan;
 
 use InvalidArgumentException;
 use RuntimeException;
+use plibv4\argv\Argv;
+use plibv4\argv\ArgvException;
+use plibv4\argv\ArgvReference;
 
 final class Move {
 	private string $source;
@@ -13,17 +16,19 @@ final class Move {
 	 * @param list<string> $argv
 	 */
 	function __construct(array $argv) {
-		if (count($argv) !== 3) {
-			throw new InvalidArgumentException(
-				"Usage: " . basename($argv[0]) . " <source> <target>" . PHP_EOL .
-				PHP_EOL .
-				"Renames scan directory and its PNG files." . PHP_EOL .
-				"Example: " . basename($argv[0]) . " scan-001 patient-john"
-			);
+		$argvModel = new ArgvMove();
+		
+		try {
+			$argvImport = new Argv($argv, $argvModel);
+		} catch (ArgvException $e) {
+			echo $e->getMessage() . PHP_EOL;
+			$ref = new ArgvReference($argvModel);
+			echo $ref->getReference() . PHP_EOL;
+			exit(1);
 		}
 		
-		$this->source = $argv[1];
-		$this->target = $argv[2];
+		$this->source = $argvImport->getPositional(0);
+		$this->target = $argvImport->getPositional(1);
 		$this->verbose = true;
 		
 		$this->validate();

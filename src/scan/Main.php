@@ -76,17 +76,20 @@ final class Main {
 	return trim($untrimmed);
 	}
 	
-	private function verboseExec(string $command): void {
+	static function verboseExec(string $command): void {
 		echo "Running command: ".$command.PHP_EOL;
 		$ph = popen($command, "r");
 		if($ph === false) {
 			echo "Unable to run command: ".$command.PHP_EOL;
-			exit();
+			exit(1);
 		}
 		while($line = fgets($ph)) {
 			echo $line;
 		}
-		pclose($ph);
+		$exitCode = pclose($ph);
+		if($exitCode !== 0) {
+			throw new \RuntimeException(sprintf("Last command failed with exit code %d", $exitCode));
+		}
 	}
 	
 	private function printProfiles(Profiles $profiles): void {
@@ -105,10 +108,10 @@ final class Main {
 		$tmpTIFF = "/tmp/scan.tif";
 		$tmpPNG = "/tmp/scan.png";
 		while(true) {
-			$this->verboseExec("scanimage --mode ".$mode." -x ".$x." -y ".$y." --format=tiff --resolution=".$res." > ".$tmpTIFF);
-			$this->verboseExec("convert ".escapeshellarg($tmpTIFF)." ".escapeshellarg($tmpPNG));
+			self::verboseExec("scanimage --mode ".$mode." -x ".$x." -y ".$y." --format=tiff --resolution=".$res." > ".$tmpTIFF);
+			self::verboseExec("convert ".escapeshellarg($tmpTIFF)." ".escapeshellarg($tmpPNG));
 			$final = sprintf("%s/%s-%02d.png", $this->target, $this->target, $count);
-			$this->verboseExec("pngcrush ".escapeshellarg($tmpPNG)." ".escapeshellarg($final));
+			self::verboseExec("pngcrush ".escapeshellarg($tmpPNG)." ".escapeshellarg($final));
 			$count++;
 			echo sprintf("Insert next page (%d) or x to cancel", $count);
 			$input = $this->getInput();

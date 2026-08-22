@@ -10,6 +10,7 @@ use plibv4\import\Import;
 final class Main {
 	private string $target;
 	private Import $actProfile;
+	private bool $open = false;
 	/**
 	 * 
 	 * @param list<string> $argv
@@ -65,6 +66,7 @@ final class Main {
 		} else {
 			mkdir($this->target);
 		}
+		$this->open = $argvImport->getBoolean("open");
 	}
 	
 	private function getInput(): string {
@@ -107,17 +109,24 @@ final class Main {
 		$mode = $this->actProfile->getString("mode");
 		$tmpTIFF = "/tmp/scan.tif";
 		$tmpPNG = "/tmp/scan.png";
+		$firstImage = "";
 		while(true) {
 			self::verboseExec("scanimage --mode ".$mode." -x ".$x." -y ".$y." --format=tiff --resolution=".$res." > ".$tmpTIFF);
 			self::verboseExec("convert ".escapeshellarg($tmpTIFF)." ".escapeshellarg($tmpPNG));
 			$final = sprintf("%s/%s-%02d.png", $this->target, $this->target, $count);
 			self::verboseExec("pngcrush ".escapeshellarg($tmpPNG)." ".escapeshellarg($final));
+			if($firstImage === "") {
+				$firstImage = $final;
+			}
 			$count++;
 			echo sprintf("Insert next page (%d) or x to cancel", $count);
 			$input = $this->getInput();
 			if($input === "x") {
 				break;
 			}
+		}
+		if($this->open) {
+			self::verboseExec("open ".escapeshellarg($firstImage));
 		}
 	}
 }

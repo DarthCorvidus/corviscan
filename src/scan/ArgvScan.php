@@ -10,5 +10,6 @@ final class ArgvScan extends ArgvGeneric {
 		$this->addPositionalArg("target", $target);
 		$this->addNamedArg("profile", UserValue::asOptional());
 		$this->addBooleanArg("list-profiles");
+		$this->addBooleanArg("open");
 	}
 }
